@@ -13,4 +13,4 @@ npm i
 
 npm start
 
-Note: please modify the .env file according to your requirment
+Note: please modify the .env file according to your requirment (PORT: 4000)
