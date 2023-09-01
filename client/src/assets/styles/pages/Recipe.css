@@ -1,0 +1,45 @@
+:root{
+    --text-color: #FA9200
+}
+
+.filter{
+    border: 1px solid #FA9200;
+    max-height: 36.8px;
+}
+
+.filter div{
+    color: var(--text-color);
+}
+
+@keyframes filter-veg {
+    0%{
+        transform: translateX(1rem);
+        opacity: 0;
+    }
+    100%{
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes filter-non-veg {
+    0%{
+        transform: translateX(2rem);
+        opacity: 0;
+    }
+    100%{
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes filter-popular {
+    0%{
+        transform: translateX(3rem);
+        opacity: 0;
+    }
+    100%{
+        transform: translateX(0);
+        opacity: 1;
+    }
+}

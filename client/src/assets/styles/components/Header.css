@@ -1,0 +1,23 @@
+.header{
+    transform: translateX(100px);
+    background-color: #fa9200;
+}
+
+.search-box{
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+}
+
+#search-bar:focus{
+    border: none;
+    box-shadow: none;
+}
+
+.search-box img, .search-box p{
+    opacity: 0.5;
+}
+
+.login-register a{
+    border-radius: 7px;
+    background-color: #fa9200;
+}

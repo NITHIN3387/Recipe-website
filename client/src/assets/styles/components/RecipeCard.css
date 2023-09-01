@@ -1,0 +1,12 @@
+.card{
+    min-width: 16.5rem;
+    max-width: 16.5rem;
+    max-height: 20rem;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    border-radius: 15px;
+}
+
+.card-img-top{
+    border-radius: 15px 15px 0 0;
+}

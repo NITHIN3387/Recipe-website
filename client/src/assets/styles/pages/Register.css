@@ -1,0 +1,44 @@
+.register-page{
+    animation: loader-reg 0.7s ease-in-out;
+}
+
+@keyframes load-reg {
+    0%{
+        transform: translateX(5%);
+        opacity: 0;
+    }
+    100%{
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.register-bg-img{
+    background-image: url('../../images/register-bg-img.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh;
+}
+
+.login-page-link{
+    color: #6f4eeb !important;
+}
+
+.btn{
+    background-color: #6f4eeb;
+    color: white;
+}
+
+.btn:hover{
+    background-color: #5037aa;
+    color: white;
+}
+
+.register-page .password-status{
+    background-image: url('../../images/hide-password.png');
+    background-size: cover;
+    height: 2rem;
+    width: 2rem;
+    opacity: 0.5;
+    zoom: 0.9;
+}

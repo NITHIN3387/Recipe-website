@@ -1,0 +1,22 @@
+.add-recipe{
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+    overflow: auto;
+}
+
+.add-recipe h1{
+    color: #6f4eeb;
+}
+
+.add-recipe h1 span{
+    color: #fb9201;
+}
+
+@media (width < 768px) {
+    .ingredient{
+        border: 1px solid gray;
+        border-radius: 7.5px;
+        padding: 0.5rem 0 1rem 0;
+        margin: 1rem 0;
+    }
+}

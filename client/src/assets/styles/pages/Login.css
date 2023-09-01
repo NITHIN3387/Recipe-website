@@ -1,0 +1,44 @@
+.login-page{
+    animation: load-login 0.7s ease-in-out;
+}
+
+@keyframes load-login {
+    0%{
+        transform: translateX(-5%);
+        opacity: 0;
+    }
+    100%{
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.login-bg-img{
+    background-image: url('../../images/Login-bg-img.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh;
+}
+
+.regsiter-page-link{
+    color: #6f4eeb !important;
+}
+
+.btn{
+    background-color: #6f4eeb;
+    color: white;
+}
+
+.btn:hover{
+    background-color: #5037aa;
+    color: white;
+}
+
+.login-page .password-status{
+    /* background-image: url('../../images/hide-password.png'); */
+    background-size: cover;
+    height: 2rem;
+    width: 2rem;
+    opacity: 0.5;
+    zoom: 0.9;
+}

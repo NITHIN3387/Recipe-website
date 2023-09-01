@@ -1,0 +1,40 @@
+.home-page{
+    display: grid;
+    height: 100vh;
+    overflow-x: hidden;
+}
+
+.section{
+    height: calc(100vh - 5rem);
+    display: grid;
+}
+
+@media (width < 768px) {
+    .side-navbar{
+        z-index: -1;
+        position: absolute;
+    }
+
+    .section{
+        height: calc(100vh - 9rem);
+        display: grid;
+    }
+}
+
+@keyframes open {
+    0%{
+        transform: translateX(-100%);
+    }
+    100%{
+        transform: translateX(0);
+    }
+}
+
+@keyframes close {
+    0%{
+        transform: translateX(0%);
+    }
+    100%{
+        transform: translateX(-100%);
+    }
+}

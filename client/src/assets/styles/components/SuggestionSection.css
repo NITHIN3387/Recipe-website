@@ -1,0 +1,6 @@
+.recipe-cards{
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 3rem;
+}

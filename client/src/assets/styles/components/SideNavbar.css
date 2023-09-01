@@ -1,0 +1,43 @@
+@media (width < 768px) {  
+    .navbar{
+        height: 94vh;
+    }
+}
+
+.nav-element{
+    font-weight: 500;
+    border-radius: 10px;
+    color: black;
+    z-index: 1;
+}
+
+.active-tab{
+    background-color: #fa9200;
+    height: 58.9px;
+    width: 161.86px;
+    border-radius: 10px;
+    position: absolute;
+}
+
+.box{
+    background-color: #fa9200;
+}
+
+.add-recipe{
+    border-radius: 10px;
+}
+
+.add-recipe a{
+    color: #fa9200;
+    border-radius: 5px;
+    font-weight: 500;
+}
+
+.add-recipe-img{
+    transform: translateY(1.8rem);
+}
+
+.navbar-collapse{
+    display: flex;
+    flex-direction: column;
+}
