@@ -42,9 +42,6 @@ const recipeUploader = async (req, res) => {
     res.send({user: user})
 }
 
-//discription: recipe uploader user's detail
-//method: GET
-//access: Public
 const userUploadedRecipies = async (req, res) => {
     const recipies = await recipeModel.find({userId: req.params.id})
     res.send({recipies: recipies})

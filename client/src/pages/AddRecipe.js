@@ -18,6 +18,7 @@ export default function AddRecipe() {
     const [ingredientList, setIngredientList] = useState([])
     const [category, setCategory] = useState('')
 
+    // list of all categories available
     const options = [
         {value: 'Appetizers and Snacks', label: 'Appetizers and Snacks'},
         {value: 'Soups and Stews', label: 'Soups and Stews'},
@@ -43,10 +44,12 @@ export default function AddRecipe() {
 
 
     async function handleSubmit(e) {
+        // avoiding the default submit 
         e.preventDefault()
 
         let formData = new FormData()
 
+        // adding the all details of recipe entered by the user to the formData 
         formData.append('userId', user._id)
         formData.append('recipeName', recipeName)
         formData.append('ingredient', JSON.stringify(ingredientList))
@@ -57,10 +60,12 @@ export default function AddRecipe() {
         formData.append('recipe-image', image)
 
         try{
+            // api to upload the recipe details 
             await fetch('http://localhost:4000/api/recipe/add', {
                 method: 'POST',
                 body: formData
             })
+                // it will redirect to home page after adding the recipe 
                 .then((res) => res.json())
                 .then((res) => {
                     window.location.href = '/'
@@ -72,12 +77,14 @@ export default function AddRecipe() {
 
     useEffect(() => {
         try {
+            // api which gives the user details 
             fetch('http://localhost:4000/api/auth/user', {
                 method: 'GET',
                 credentials: 'include'
             })
                 .then((res) => res.json())
                 .then((res) => {
+                    // if user is already logged in it will save the user detailes in user variable else it will redirect to login page 
                     if (res.status)
                         setUser(res.user)
                     else {
@@ -87,9 +94,12 @@ export default function AddRecipe() {
         } catch {
             console.log('somthing went wrong');
         }
+
+        // this will update the aactive tab in side navbar
         ActiveTab(0, -1)
     }, [ingredientList])
 
+    // function to handle the adding of the ingredient 
     function handleIngredientAdd() {
         let include = false
         for (const ele of ingredientList) {
@@ -102,6 +112,7 @@ export default function AddRecipe() {
         document.getElementById('quantity').value = ''
     }
 
+    // function to handle the removal of the added ingredient 
     function handleIngredientRemove(ingredient){
         const list =  ingredientList.filter((ele) => (
             ele.ingredient !== ingredient
@@ -116,13 +127,16 @@ export default function AddRecipe() {
                 <span>Add your </span>
                 recipe_.
             </h1>
+            {/* form for filling recipe details  */}
             <form className="fluid-container p-lg-5 pt-lg-4 pt-3">
+                {/* enter the recipe name  */}
                 <div className="row my-lg-4">
                     <label className="col-lg-2 col-12 col-form-label" htmlFor='recipe-name'>Recipe-name:</label>
                     <div className="col-lg-8 col-12">
                         <input type='text' className='form-control' id='recipe-name' onChange={(e) => setRecipeName(e.target.value)} />
                     </div>
                 </div>
+                {/* enter the ingredients  */}
                 <div className="row my-lg-4 my-md-4 ingredient">
                     <label htmlFor="ingredients" className="col-lg-2 col-md-2 col-12 col-form-label">Ingredients:</label>
                     <div className="col-lg-4 col-md-4 col-12 d-flex">
@@ -135,6 +149,7 @@ export default function AddRecipe() {
                             <img src={AddIngredient} alt="" width={13}/>
                         </div>
                     </div>
+                    {/* Displaying recipies ingredient that we have added  */}
                     <div className="col-lg-10 col-md-10 col-12 mt-lg-4 mt-md-4 mt-2">
                         {
                             ingredientList.map((ele, i) => (
@@ -146,6 +161,7 @@ export default function AddRecipe() {
                         }
                     </div>
                 </div>
+                {/* instructions to cook the recipe  */}
                 <div className="row my-lg-4">
                     <label htmlFor="describtion" className="form-label col-12">Instructions:</label>
                     <div className="col-lg-10 col-12">
@@ -153,10 +169,12 @@ export default function AddRecipe() {
                     </div>
                 </div>
                 <div className="row my-lg-4 my-md-4">
+                    {/* category which the recip belong  */}
                     <div className='col-lg-5 col-md-12 d-lg-flex d-md-flex align-items-center my-lg-0 my-md-0 my-3'>
                         <label className="form-check-label col-lg-3 col-md-3 col-12 mb-lg-0 mb-md-0 mb-2" htmlFor="category">Category:</label>
                         <Select options={options} id='category' className='col-lg-9 col-md-9 col-12' onChange={(e) => setCategory(e.value)}/>
                     </div>
+                    {/* type of the reciep veg oor non veg  */}
                     <div className="col-lg-3 col-md-6 col-12 my-lg-0 my-md-4 my-2 d-flex align-items-center justify-content-lg-center">
                         <div className="form-check me-4">
                             <input className="form-check-input" type="radio" name="type" id="veg" onChange={() => setType('veg')} defaultChecked />
@@ -167,6 +185,7 @@ export default function AddRecipe() {
                             <label className="form-check-label" htmlFor="non-veg">non-veg</label>
                         </div>
                     </div>
+                    {/* for how many people it will serve  */}
                     <div className="col-lg-4 col-md-6 col-12 d-lg-flex d-md-flex align-items-center">
                         <label className="form-label col-lg-2 col-md-4" htmlFor="serves">serves:</label>
                         <div className='col-lg-3 col-md-5'>
@@ -174,12 +193,14 @@ export default function AddRecipe() {
                         </div>
                     </div>
                 </div>
+                {/* upload the recipe pic  */}
                 <div className="row mb-lg-5 my-4">
                     <label htmlFor="img" className="form-label">choose the recipe image:</label>
                     <div className="col-lg-7">
                         <input className="form-control" type="file" id="img" name='recipe-image' accept='image/*' onChange={(e) => setImage(e.target.files[0])} />
                     </div>
                 </div>
+                {/* submit button  */}
                 <button className="btn" type='submit' onClick={(e) => handleSubmit(e)}>Add Recipe</button>
             </form>
         </div>

@@ -12,6 +12,7 @@ export default function Recipes() {
     const [filterToggle, setFilterToggle] = useState(false)
     const [filter, setFilter] = useState([])
 
+    // function to handle the filter options 
     function handleFilterOptions() {
         if (!filterToggle) {
             document.getElementById('filter-veg').classList.remove('d-none')
@@ -37,6 +38,7 @@ export default function Recipes() {
         setFilterToggle(!filterToggle)
     }
 
+    // funtion to handle the filter 
     function handleFilter(fil, color) {
         if (!filter.includes(fil)) {
             setFilter([...filter, fil])
@@ -53,11 +55,13 @@ export default function Recipes() {
 
     useEffect(() => {
         try {
+            //api to fetch all the recipes details
             fetch('http://localhost:4000/api/recipe/all-recipies', {
                 method: 'GET'
             })
                 .then((res) => res.json())
                 .then((res) => {
+                    // funtion to filter recipies according to the search
                     function filterRecipe(recipe) {
                         if (recipe.recipeName.toLowerCase().includes(search.toLowerCase()))
                             return true
@@ -65,6 +69,7 @@ export default function Recipes() {
                             return false
                     }
 
+                    // filtering recipies according to the filters given by user
                     res = res.filter((ele) => (
                         filterRecipe(ele) &&
                         (filter.includes('veg') && filter.includes('non-veg') ? true :
@@ -82,7 +87,9 @@ export default function Recipes() {
             console.log('fail to fetch');
         }
 
+        // fucusing the search bar when we load this page 
         document.getElementById('search-bar').focus()
+        // this will update the aactive tab in side navbar
         ActiveTab(78.9, 1)
     }, [search, filter])
 
@@ -90,23 +97,27 @@ export default function Recipes() {
         <div className="load-animation my-5">
             <div className="d-flex justify-content-between">
                 <h4>Discover  Your Recipes</h4>
+
+                {/* the options to filter */}
                 <div className="d-flex">
                     <div className="d-flex align-items-center">
                         <div className="px-3 py-1 border rounded-2 text-success border-success d-none" id="filter-veg" onClick={() => handleFilter('veg', 'success')} style={{ cursor: 'pointer' }}>Veg</div>
                         <div className="mx-3 px-3 py-1 border rounded-2 text-danger border-danger d-none" id="filter-non-veg" onClick={() => handleFilter('non-veg', 'danger')} style={{ cursor: 'pointer' }}>Non-Veg</div>
                         <div className="me-3 px-3 py-1 border rounded-2 text-info border-info d-none" id="filter-popular" onClick={() => handleFilter('popular', 'info')} style={{ cursor: 'pointer' }}>Popular</div>
                     </div>
+                    {/* filter button to show the filter option  */}
                     <div className="d-flex align-items-center rounded-pill px-3 filter" onClick={handleFilterOptions} style={{ cursor: 'pointer' }}>
                         <div className="fs-5 me-2">Filter</div>
                         <img src={Filter} alt="..." width={25} height={25} />
                     </div>
                 </div>
             </div>
-            <div className="recipe-cards mt-4 container p-0" style={{overflowY: 'auto', overflowX: 'hidden', maxHeight: '37.5rem'}}>
+            {/* recipies display section  */}
+            <div className="recipe-cards mt-4 container p-0" style={{ overflowY: 'auto', overflowX: 'hidden', maxHeight: '37.5rem' }}>
                 <div className="row">
                     {
                         recipies.length ? recipies.map((ele) => {
-                            return <RecipeCard key={ele._id} recipe={ele} user={user}/>
+                            return <RecipeCard key={ele._id} recipe={ele} user={user} auth={auth} />
                         }) :
                             <h3 className="text-center w-100">Sorry, we couldn't find the recipe you're seeking. 😔</h3>
                     }

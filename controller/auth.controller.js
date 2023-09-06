@@ -24,7 +24,7 @@ const RegisterControll = async (req, res) => {
                     name,
                     email,
                     password: hash,
-                    subcribed: "[]",
+                    subscribed: "[]",
                 })
                 console.log('registered succesfully')
                 res.send({message: 'ok'})
@@ -35,10 +35,6 @@ const RegisterControll = async (req, res) => {
     }
 }
 
-
-//discription: Login controll
-//method: POST
-//access: Public
 const LoginControl = async(req, res) => {
     const {email, password} = req.body
     
@@ -78,25 +74,16 @@ const User = async (req, res) => {
     res.send({status: true, user: user})
 }
 
-//discription: Login user's detail
-//method: GET
-//access: Private
 const Subscribed = async (req, res) => {
     const user = await users.find({subscribed: new RegExp(req.params.id, 'i')})
     res.send({status: true, user: user})
 }
 
-//discription: Login user's detail
-//method: GET
-//access: Private
 const UserById = async (req, res) => {
     const user = await users.findOne({_id: req.params.id})
     res.send({status: true, user: user})
 }
 
-//discription: Login user's detail
-//method: GET
-//access: Private
 const updateUser = async (req, res) => {
     const {name, email, password, subscribed} = req.body
     const user = await users.findOneAndUpdate({_id: req.params.id}, {
@@ -110,9 +97,6 @@ const updateUser = async (req, res) => {
     res.send({message: 'updated', user: user})
 }
 
-//discription: clear the cookie
-//method: GET
-//access: public
 const ClearCookies = (req, res) => {
     res.clearCookie('token')
     res.send({message: 'cleared'})

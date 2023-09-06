@@ -2,12 +2,12 @@ import { useEffect, useState } from "react"
 import ActiveTab from "../utils/ActiveTab"
 import DefaultUser from '../assets/images/default-user.png'
 import '../assets/styles/pages/loadAnimation.css'
-// import { useOutletContext } from "react-router-dom"
+import { useOutletContext } from "react-router-dom"
 import { RecipeCard } from "../components/RecipeCard"
 
 
 export default function Setting() {
-    // const { user, auth, search } = useOutletContext()
+    const { use, auth, search } = useOutletContext()
     const [recipies, setRecipies] = useState([])
     const [user, setUser] = useState([])
     const [users, setUsers] = useState([])
@@ -89,7 +89,7 @@ export default function Setting() {
                 <div className="row" style={{maxHeight: '70rem'}}>
                     {
                         recipies.length ? recipies.filter((ele) => users).map((ele, i) => (
-                            <RecipeCard recipe={ele} key={i} user={user} />
+                            <RecipeCard recipe={ele} key={ele._id} user={user}  auth={auth}/>
                         )) :
                             <h3 className="text-center w-100">No Recipies to see ..</h3>
                     }

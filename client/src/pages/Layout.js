@@ -9,7 +9,7 @@ export default function Home() {
     const [user, setUser] = useState()      //stores the details or login user
     const [searchRecipe, setSearchRecipe] = useState('')
     const sideNavbar = useRef()
-    
+
     //fuction which fetch the details of login user and stores in 'user'
     async function fetchUserData() {
         try {
@@ -28,13 +28,15 @@ export default function Home() {
                 })
         } catch {
             console.log('somthing went wrong !!!');
+            setAuth(false)
         }
     }
 
+    // function to handle the searched recipies
     function search(recipe) {
         setSearchRecipe(recipe)
     }
-    
+
     useEffect(() => {
         fetchUserData()
     }, [auth])
@@ -42,13 +44,16 @@ export default function Home() {
     return (
         <div className="fluid-container home-page">
             <div className="row">
+                {/* side nav bar  */}
                 <div className="d-grid col-xl-2 col-lg-3 col-md-4 col-sm-5 col-9 px-5 py-4 bg-light side-navbar" ref={sideNavbar}>
-                    <SideNavbar auth={auth} navbar={sideNavbar}/>
+                    <SideNavbar auth={auth} navbar={sideNavbar} />
                 </div>
                 <div className="col-xl-10 col-lg-9 col-md-8 pt-4 px-5" style={{ background: '#f3f3ff' }}>
-                    {useMemo(() => <Header auth={auth} user={user} navbar={sideNavbar} search={search}/>, [auth, sideNavbar])}
+                    {/* useMemo is used to avoid the rerender every time  */}
+                    {/* it will rerender if any changes happen in the variable auth or sideNavbar values */}
+                    {useMemo(() => <Header auth={auth} user={user} navbar={sideNavbar} search={search} />, [auth, sideNavbar])}
                     <div className="section">
-                        <Outlet context={{user: user, auth: auth, search: searchRecipe }}/>
+                        <Outlet context={{ user: user, auth: auth, search: searchRecipe }} />
                     </div>
                 </div>
             </div>

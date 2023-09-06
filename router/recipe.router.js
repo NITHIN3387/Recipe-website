@@ -2,11 +2,14 @@ const express = require('express');
 const multer = require('multer');
 const { addRecipe, getAllRecipe, getRecipe, recipeUploader, updateRecipe, userUploadedRecipies, deleteRecipe } = require('../controller/recipe.controller');
 
-const upload = multer({dest: 'recipeImage/'})
+const storage = multer.diskStorage({
+    destination: (res, file, cb) => cb(null, './recipeImage'),
+    filename: (res, file, cb) => cb(null, Date.now() + file.originalname)
+})
+
+const upload = multer({storage})
 
 const router = express.Router()
-
-// const auth = require('../middleware/auth.middleware')
 
 router.post('/add', upload.single('recipe-image'), addRecipe)
 router.get('/all-recipies', getAllRecipe)

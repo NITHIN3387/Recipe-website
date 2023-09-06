@@ -2,12 +2,14 @@ import { useEffect, useState } from 'react'
 import DefaultUser from '../assets/images/default-user.png'
 import ActiveTab from '../utils/ActiveTab'
 import { RecipeCard } from '../components/RecipeCard'
-import { useParams } from 'react-router-dom'
+import { useOutletContext, useParams } from 'react-router-dom'
 
 export default function UserProfile() {
+    const { use, auth, search } = useOutletContext()
     const [user, setUser] = useState([])
     const [userDetail, setUserDetail] = useState([])
     const [recipies, setRecipies] = useState([])
+    const [subscribed, setSubscribed] = useState([])
 
     const { id } = useParams()
 
@@ -28,6 +30,7 @@ export default function UserProfile() {
                 .then((res) => res.json())
                 .then((res) => {
                     setUserDetail(res.user)
+                    setSubscribed(JSON.parse(res.user.subscribed))
                 })
         }catch{
             console.log('fail to fetch');
@@ -50,7 +53,7 @@ export default function UserProfile() {
 
     async function handleSubscribe(sub) {
         try {
-            await fetch('http://localhost:4000/api/auth/update-user/' + user._id, {
+            await fetch('http://localhost:4000/api/auth/update-user/' + userDetail._id, {
                 method: 'PUT',
                 headers: {
                     "Content-Type": "application/json",
@@ -60,7 +63,7 @@ export default function UserProfile() {
                     name: userDetail.name,
                     email: userDetail.email,
                     password: userDetail.password,
-                    subscribed: sub ? JSON.stringify([...(JSON.parse(userDetail.subscribed)), userDetail._id]) : JSON.stringify((JSON.parse(userDetail.subscribed)).filter((ele) => ele !== userDetail._id))
+                    subscribed: sub ? JSON.stringify([...subscribed, user._id]) : JSON.stringify(subscribed.filter((ele) => ele !== user._id))
                 })
             })
                 .then((res) => res.json())
@@ -77,7 +80,7 @@ export default function UserProfile() {
         fetchUserRecipies()
 
         ActiveTab(0, -1)
-    }, [id])
+    }, [id, userDetail])
 
     return (
         <div className="load-animation rounded-4 mt-5" style={{overflowY: 'auto', overflowX: 'hidden'}}>
@@ -125,7 +128,7 @@ export default function UserProfile() {
                     <div className="container p-0 d-flex" style={{overflowX: 'auto'}}>
                         {
                             recipies.length ? recipies.map((ele, i) => (
-                                <RecipeCard recipe={ele} user={userDetail} key={i} />
+                                <RecipeCard recipe={ele} user={userDetail} key={i}  auth={auth}/>
                             )) : <h3 className='text-center w-100'>You didn't post any recipies at !!</h3>
                         }
                     </div>

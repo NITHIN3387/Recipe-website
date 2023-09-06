@@ -9,6 +9,7 @@ export default function Overview() {
     const {user, auth} = useOutletContext() || []
     
     useEffect(() => {
+        // this will update the active tab in side navbar
         ActiveTab(0, 0)
     },[])
 
